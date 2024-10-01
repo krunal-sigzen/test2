@@ -32,7 +32,7 @@ jobs:
           elif [[ "$labels" == *"restart"* ]]; then
             echo "restart"
           else
-            echo "migrate_and_restart" >> $GITHUB_OUTPUT
+            echo "migrate_and_restart"
           fi
           
 
