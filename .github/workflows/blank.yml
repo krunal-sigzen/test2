@@ -15,8 +15,6 @@ jobs:
   determine-script:
     runs-on: ubuntu-latest
     needs: checkout
-    outputs:
-      script-file: ${{ steps.script.outputs.script-file }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -28,11 +26,13 @@ jobs:
           labels=$(echo '${{ toJson(github.event.pull_request.labels.*.name) }}' | jq -r '.[]')
           echo $labels
           if [[ "$labels" == *"migrate_restart"* ]]; then
-            echo "script-file=migrate_and_restart.sh" >> $GITHUB_OUTPUT
+            echo "migrate_and_restart" 
           elif [[ "$labels" == *"migrate"* ]]; then
-            echo "script-file=migrate.sh" >> $GITHUB_OUTPUT
+            echo "migrate." 
           elif [[ "$labels" == *"restart"* ]]; then
-            echo "script-file=restart.sh" >> $GITHUB_OUTPUT
+            echo "restart"
           else
-            echo "script-file=migrate_and_restart.sh" >> $GITHUB_OUTPUT
+            echo "migrate_and_restart" >> $GITHUB_OUTPUT
           fi
+          
+
